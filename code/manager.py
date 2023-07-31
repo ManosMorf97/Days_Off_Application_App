@@ -16,6 +16,8 @@ def reduce_days_off(true_or_false,results,db,cursor):
         left_days_off=left_days_off-days_to_reduce
         sql_statement="update Employee set "+accepted_result[2]+"=%s where email=%s"
         values=(left_days_off,email_)
+        cursor.execute(sql_statement,values)
+        db.commit()
 
 
 def process_Request(requests_ids,true_or_false,Accepted_or_Rejected):
