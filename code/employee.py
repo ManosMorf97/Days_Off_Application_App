@@ -15,6 +15,11 @@ def create_request(email,category_double_quote,request_days_off):
     results=[result for result in list(cursor.fetchall())]
     print(results)
     days_off=int(results[0][0])
+    sql_statement="select sum(Requested_Days_Off) from Requests where email=%s and category=%s and accepted=null"
+    values=(email,category[category_double_quote])
+    cursor.execute(sql_statement,values)
+    results=[result for result in list(cursor.fetchall())]
+    overall_request_days_off=results[0][0]+request_days_off
     db.commit()
     if(days_off>=request_days_off):
         sql_statement="insert into Request (email,category,RequestedDaysOff) values(%s,%s,%s) "
@@ -68,5 +73,5 @@ def results(email):
 #print(create_request('manosmorf97@gmail.com',"NormalDaysOff",10))
 #print(unseen_answers("manosmorf97@gmail.com"))
 #print(get_left_days_off('manosmorf97@gmail.com',"ParentialDaysOff"))
-print(results("manosmorf97@gmail.com"))
+#print(results("manosmorf97@gmail.com"))
 
