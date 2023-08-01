@@ -6,19 +6,22 @@ def create_request(email,category_double_quote,request_days_off):
     category["ParentialDaysOff"]='ParentialDaysOff'
     category["DiseaseDaysOff"]='DiseaseDaysOff'
     db,cursor=connect()
-    values=email,
+    values=(email,)
     sql_statement="select "+category_double_quote+" from Employee where email=%s"
     cursor.execute(sql_statement,values)
+    db.commit()
     results=[result for result in list(cursor.fetchall())]
-    print(results)
     days_off=int(results[0][0])
-    sql_statement="select sum(Requested_Days_Off) from Requests where email=%s and category=%s and accepted=null"
+    sql_statement="select sum(RequestedDaysOff) from Request where email=%s and category=%s and accepted is null"
     values=(email,category[category_double_quote])
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
-    overall_request_days_off=results[0][0]+request_days_off
+    past_requested_days_off=0
+    if not(results[0][0] is None):
+        past_requested_days_off=int(results[0][0])
+    overall_requested_days_off=past_requested_days_off+request_days_off
     db.commit()
-    if(days_off<overall_request_days_off):
+    if(days_off<overall_requested_days_off):
         return "You cannot take too many days off.For "+category_double_quote+" check days off "
     sql_statement="insert into Request (email,category,RequestedDaysOff) values(%s,%s,%s) "
     values=(email,category[category_double_quote],request_days_off)
