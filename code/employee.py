@@ -1,14 +1,11 @@
-import mysql.connector
-import mysql.connector.errorcode
-from secret import *
+from connection import *
 
 def create_request(email,category_double_quote,request_days_off):
     category={}
     category["NormalDaysOff"]='NormalDaysOff'
     category["ParentialDaysOff"]='ParentialDaysOff'
     category["DiseaseDaysOff"]='DiseaseDaysOff'
-    db=mysql.connector.connect(user='manos',password=mysql_pwd,database='permisions',host="localhost")
-    cursor=db.cursor()
+    db,cursor=connect()
     values=email,
     sql_statement="select "+category_double_quote+" from Employee where email=%s"
     cursor.execute(sql_statement,values)
@@ -21,52 +18,44 @@ def create_request(email,category_double_quote,request_days_off):
     results=[result for result in list(cursor.fetchall())]
     overall_request_days_off=results[0][0]+request_days_off
     db.commit()
-    if(days_off>=request_days_off):
-        sql_statement="insert into Request (email,category,RequestedDaysOff) values(%s,%s,%s) "
-        values=(email,category[category_double_quote],request_days_off)
-        cursor.execute(sql_statement,values)
-        db.commit()
-        cursor.close()
-        db.close()
-        return "Your request has been sent"
-    else:
+    if(days_off<overall_request_days_off):
         return "You cannot take too many days off.For "+category_double_quote+" check days off "
+    sql_statement="insert into Request (email,category,RequestedDaysOff) values(%s,%s,%s) "
+    values=(email,category[category_double_quote],request_days_off)
+    cursor.execute(sql_statement,values)
+    db.commit()
+    disconnect(db,cursor)
+    return "Your request has been sent"
     
 def unseen_answers(email):
-    db=mysql.connector.connect(user='manos',password=mysql_pwd,database='permisions',host="localhost")
-    cursor=db.cursor()
+    db,cursor=connect()
     sql_statement="select count(*) from Decision where reciever=%s"
     values=email,
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    cursor.close()
-    db.close()
+    disconnect(db,cursor)
     return int(results[0][0])
 
 
 def get_left_days_off(email,category_double_quote):
-    db=mysql.connector.connect(user='manos',password=mysql_pwd,database='permisions',host="localhost")
-    cursor=db.cursor()
+    db,cursor=connect()
     sql_statement="select "+category_double_quote+" from Employee where email=%s"
     values=email,
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    cursor.close()
-    db.close()
+    disconnect(db,cursor)
     return int(results[0][0])
 
 def results(email):
-    db=mysql.connector.connect(user='manos',password=mysql_pwd,database='permisions',host="localhost")
-    cursor=db.cursor()
+    db,cursor=connect()
     sql_statement="select description from Decision where reciever=%s"
     values=email,
     cursor.execute(sql_statement,values)
     returned_results=[result[0] for result in list(cursor.fetchall())]
     db.commit()
-    cursor.close()
-    db.close()
+    disconnect(db,cursor)
     return returned_results
 
 
