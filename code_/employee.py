@@ -12,7 +12,7 @@ def create_request(email,category_double_quote,request_days_off):
     db.commit()
     results=[result for result in list(cursor.fetchall())]
     days_off=int(results[0][0])
-    sql_statement="select sum(RequestedDaysOff) from Request where email=%s and category=%s and accepted is NULL "
+    sql_statement="select sum(RequestedDaysOff) from Request where email=%s and category=%s and approval is NULL "
     values=(email,category[category_double_quote])
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]

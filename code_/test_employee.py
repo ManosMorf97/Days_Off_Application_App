@@ -40,7 +40,7 @@ def test_max_request_with_rejections(insert_users):
     assert "Your request has been sent"==create_request("manosmorf97@gmail.com","NormalDaysOff",5)
     assert "Your request has been sent"==create_request("billb97@gmail.com","NormalDaysOff",5)
     db,cursor=connect()
-    cursor.execute("Update Request set accepted='Rejected' where email='manosmorf97@gmail.com' and RequestedDaysOff=5")
+    cursor.execute("Update Request set approval='Rejected' where email='manosmorf97@gmail.com' and RequestedDaysOff=5")
     db.commit()
     disconnect(db,cursor)
     assert "Your request has been sent"==create_request("manosmorf97@gmail.com","NormalDaysOff",5)
