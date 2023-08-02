@@ -45,5 +45,9 @@ def Accept_Reject(accepted_requests_ids):
     process_Request(accepted_requests_ids,"Accepted",db,cursor)
     disconnect(db,cursor)
     
-
+def see_Requests():
+    db,cursor=connect()
+    cursor.execute("select * from Request where accepted is NULL")
+    results=[result for result in list(cursor.fetchall())]
+    return results
 

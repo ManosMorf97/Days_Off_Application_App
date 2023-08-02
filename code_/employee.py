@@ -53,7 +53,7 @@ def get_left_days_off(email,category_double_quote):
 
 def results(email):
     db,cursor=connect()
-    sql_statement="select description from Decision where reciever=%s and viewed=no"
+    sql_statement="select description from Decision where reciever=%s and viewed='no'"
     values=email,
     cursor.execute(sql_statement,values)
     returned_results=[result[0] for result in list(cursor.fetchall())]
