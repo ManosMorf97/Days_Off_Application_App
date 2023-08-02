@@ -12,7 +12,7 @@ def create_request(email,category_double_quote,request_days_off):
     db.commit()
     results=[result for result in list(cursor.fetchall())]
     days_off=int(results[0][0])
-    sql_statement="select sum(RequestedDaysOff) from Request where email=%s and category=%s and accepted is null"
+    sql_statement="select sum(RequestedDaysOff) from Request where email=%s and category=%s and accepted is NULL "
     values=(email,category[category_double_quote])
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
@@ -32,7 +32,7 @@ def create_request(email,category_double_quote,request_days_off):
     
 def unseen_answers(email):
     db,cursor=connect()
-    sql_statement="select count(*) from Decision where reciever=%s"
+    sql_statement="select count(*) from Decision where reciever=%s and viewed='no'"
     values=email,
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
@@ -53,10 +53,13 @@ def get_left_days_off(email,category_double_quote):
 
 def results(email):
     db,cursor=connect()
-    sql_statement="select description from Decision where reciever=%s"
+    sql_statement="select description from Decision where reciever=%s and viewed=no"
     values=email,
     cursor.execute(sql_statement,values)
     returned_results=[result[0] for result in list(cursor.fetchall())]
+    db.commit()
+    sql_statement="Update Decision set viewed='yes' where reciever=%s"
+    cursor.execute(sql_statement,values)
     db.commit()
     disconnect(db,cursor)
     return returned_results
