@@ -55,54 +55,55 @@ def test_Accept_Reject(insert_users):
     cursor.execute("Select RequestId from Request")
     ids=[result[0] for result in list(cursor.fetchall())]
     accepted_ids=[ids[1],ids[2],ids[3]]
+    db.commit()
     Accept_Reject(accepted_ids)
     cursor.execute("select count(*) from Request where approval='Accepted'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_accepted=results[0][0]
+    count_accepted=int(results[0][0])
+    assert 3==count_accepted
     cursor.execute("select count(*) from Request where approval='Rejected'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_rejected=results[0][0]
+    count_rejected=int(results[0][0])
     assert 2==count_rejected
-    #assert 3==count_accepted
     cursor.execute("select count(*) from Decision where description like '%Rejected%'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_decisions_rejected=results[0][0]
+    count_decisions_rejected=int(results[0][0])
     cursor.execute("select count(*) from Decision where description like '%Accepted%'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_decisions_accepted=results[0][0]
+    count_decisions_accepted=int(results[0][0])
     assert 3==count_decisions_accepted
     assert count_rejected==count_decisions_rejected
     cursor.execute("select count(*) from Decision where description like '%NormalDaysOff%'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_decisions_NormalDaysOff=results[0][0]
+    count_decisions_NormalDaysOff=int(results[0][0])
     cursor.execute("select count(*) from Decision where description like '%DiseaseDaysOff%'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_decisions_DiseaseDaysOff=results[0][0]
+    count_decisions_DiseaseDaysOff=int(results[0][0])
     cursor.execute("select count(*) from Decision where description like '%ParentialDaysOff%'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    count_decisions_ParentialDaysOff=results[0][0]
+    count_decisions_ParentialDaysOff=int(results[0][0])
     assert count_decisions_NormalDaysOff==2
     assert count_decisions_DiseaseDaysOff==2
     assert count_decisions_ParentialDaysOff==1
     cursor.execute("select NormalDaysoff from Employee where email='manosmorf97@gmail.com'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    manos_days_off_normal=results[0][0]
+    manos_days_off_normal=int(results[0][0])
     cursor.execute("select DiseaseDaysoff from Employee where email='billb97@gmail.com'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    bill_days_off_disease=results[0][0]
+    bill_days_off_disease=int(results[0][0])
     cursor.execute("select ParentialDaysoff from Employee where email='johnd97@gmail.com'")
     results=[result for result in list(cursor.fetchall())]
     db.commit()
-    john_days_off_parential=results[0][0]
+    john_days_off_parential=int(results[0][0])
     assert manos_days_off_normal==15
     assert bill_days_off_disease==85
     assert john_days_off_parential==23

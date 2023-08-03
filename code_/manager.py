@@ -24,7 +24,7 @@ def process_Request(requests_ids,Accepted_or_Rejected,db,cursor):
     values=Accepted_or_Rejected,
     sql_statement="select Requestid,email,category,RequestedDaysOff from Request where approval=%s"
     cursor.execute(sql_statement,values)
-    #db.commit()
+    db.commit()
     results=[result for result in list(cursor.fetchall())]
     for result in results:
         request_id=result[0]
