@@ -31,7 +31,7 @@ def process_Request(requests_ids,Accepted_or_Rejected,db,cursor):
         email_=result[1]
         category=result[2]
         days_off=result[3]
-        description="The request with id: "+str(request_id)+" where you asked"+str(days_off)+" "+category+" has been "+Accepted_or_Rejected
+        description="The request with id: "+str(request_id)+" where you asked "+str(days_off)+" "+category+" has been "+Accepted_or_Rejected
         sql_statement="Insert into Decision (description,viewed,reciever) values(%s,'no',%s)"
         values=(description,email_)
         cursor.execute(sql_statement,values)
