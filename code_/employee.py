@@ -9,7 +9,7 @@ def create_request(email,category_double_quote,request_days_off):
     values=(email,)
     sql_statement="select "+category_double_quote+" from Employee where email=%s"
     cursor.execute(sql_statement,values)
-    db.commit()
+    #db.commit()
     results=[result for result in list(cursor.fetchall())]
     days_off=int(results[0][0])
     sql_statement="select sum(RequestedDaysOff) from Request where email=%s and category=%s and approval is NULL "
@@ -20,7 +20,7 @@ def create_request(email,category_double_quote,request_days_off):
     if not(results[0][0] is None):
         past_requested_days_off=int(results[0][0])
     overall_requested_days_off=past_requested_days_off+request_days_off
-    db.commit()
+    #db.commit()
     if(days_off<overall_requested_days_off):
         return "You cannot take too many days off.For "+category_double_quote+" check days off "
     sql_statement="insert into Request (email,category,RequestedDaysOff) values(%s,%s,%s) "
@@ -36,7 +36,7 @@ def unseen_answers(email):
     values=email,
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
-    db.commit()
+    #db.commit()
     disconnect(db,cursor)
     return int(results[0][0])
 
@@ -47,7 +47,7 @@ def get_left_days_off(email,category_double_quote):
     values=email,
     cursor.execute(sql_statement,values)
     results=[result for result in list(cursor.fetchall())]
-    db.commit()
+    #db.commit()
     disconnect(db,cursor)
     return int(results[0][0])
 
@@ -57,7 +57,7 @@ def results(email):
     values=email,
     cursor.execute(sql_statement,values)
     returned_results=[result[0] for result in list(cursor.fetchall())]
-    db.commit()
+    #db.commit()
     sql_statement="Update Decision set viewed='yes' where reciever=%s"
     cursor.execute(sql_statement,values)
     db.commit()

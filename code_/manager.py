@@ -9,7 +9,6 @@ def reduce_days_off(Accepted_or_Rejected,results,db,cursor):
         category=accepted_result[2]
         days_off=accepted_result[3]
         sql_statement="Update Employee set "+category+"="+category+"-%s where email=%s"
-        print(sql_statement)
         values=(str(days_off),email_)
         cursor.execute(sql_statement,values)
         db.commit()
@@ -25,7 +24,7 @@ def process_Request(requests_ids,Accepted_or_Rejected,db,cursor):
     values=Accepted_or_Rejected,
     sql_statement="select Requestid,email,category,RequestedDaysOff from Request where approval=%s"
     cursor.execute(sql_statement,values)
-    db.commit()
+    #db.commit()
     results=[result for result in list(cursor.fetchall())]
     for result in results:
         request_id=result[0]
@@ -44,13 +43,14 @@ def Accept_Reject(accepted_requests_ids):
     results=see_Requests()
     ids=list(map(lambda result:result[0],results))
     rejected_requests_ids=list(set(ids)-set(accepted_requests_ids))
-    process_Request(rejected_requests_ids,"Rejected",db,cursor)
-    process_Request(accepted_requests_ids,"Accepted",db,cursor)
+    process_Request(rejected_requests_ids,'Rejected',db,cursor)
+    process_Request(accepted_requests_ids,'Accepted',db,cursor)
     disconnect(db,cursor)
     
 def see_Requests():
     db,cursor=connect()
     cursor.execute("select * from Request where approval is NULL")
     results=[result for result in list(cursor.fetchall())]
+    disconnect(db,cursor)
     return results
 
