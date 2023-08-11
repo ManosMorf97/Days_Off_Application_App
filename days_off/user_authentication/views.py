@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponse
+from code_.connection import *
+
 
 def home(request):
     return HttpResponse('HOME')
@@ -18,6 +20,11 @@ def register(request):
             firstname=form.cleaned_data['firstname']
             lastname=form.cleaned_data['lastname']
             user=authenticate(username=email,password=password)
+            db,cursor=connect()
+            sql_statement="Insert into Employee values(%s,%s,%s,25,25,120)"
+            details=(email,firstname,lastname)
+            cursor.execute(sql_statement,details)
+            disconnect(db,cursor)
             login(request,user)
             return redirect('account/login')
     else:

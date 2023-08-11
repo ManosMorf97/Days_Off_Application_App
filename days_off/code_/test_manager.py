@@ -1,9 +1,9 @@
 #import sys
 #sys.path.insert(0,"../code_")
 import pytest
-from connection import *
-from employee import *
-from manager import *
+from .connection import *
+from .employee import *
+from .manager import *
 #sys.path.insert(0,"pwd/../code_")
 
 

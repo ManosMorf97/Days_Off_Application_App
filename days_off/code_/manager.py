@@ -1,4 +1,4 @@
-from connection import *
+from .connection import *
 
 def reduce_days_off(Accepted_or_Rejected,results,db,cursor):
     if(Accepted_or_Rejected=="Rejected") :

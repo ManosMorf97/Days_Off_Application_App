@@ -1,4 +1,4 @@
-from connection import *
+from .connection import *
 
 def create_request(email,category_double_quote,request_days_off):
     category={}
