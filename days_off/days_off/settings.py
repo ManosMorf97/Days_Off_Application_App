@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user_authentication'
+    'user_authentication',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -128,4 +129,4 @@ LOGIN_REDIRECT_URL='home'
 LOGOUT_REDIRECT_URL='login'
 
 
-CRISPY_TEMPLATE_PACK='bootstrap4'
+CRISPY_TEMPLATE_PACK='bootstrap5'
