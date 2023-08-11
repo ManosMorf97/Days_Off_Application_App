@@ -10,6 +10,15 @@
         <link rel="stylesheet" href="{% static 'style.css'%}">
     </head>
     <body>
+        {%if form.errors %}
+        <div class="alert alert-danger alert-dismissible">
+            Email and/or password are wrong.Try again
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+        {%if next%}
+        <div class="alert alert-danger" role="alert">I am sorry.You cannot access this page</div>
+        {%endif%}
         <section class="vh-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -35,7 +44,7 @@
                                 
                 
                             <div>
-                                <p class="mb-0">Don't have an account? <a href="{url 'user_authentication.views.register'}" class="text-white-50 fw-bold">Sign Up</a>
+                                <p class="mb-0">Don't have an account? <a href="/home/register/" class="text-white-50 fw-bold">Sign Up</a>
                                 </p>
                             </div>
                 

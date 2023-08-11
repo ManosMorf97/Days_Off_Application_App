@@ -13,11 +13,13 @@ def register(request):
 
         if(form.is_valid()):
             form.save()
-            email=form.cleaned_data['username']
-            password=form.cleaned_data['password']
-            user=authenticate(usename=email,password=password)
+            email=form.cleaned_data['email']
+            password=form.cleaned_data['password1']
+            firstname=form.cleaned_data['firstname']
+            lastname=form.cleaned_data['lastname']
+            user=authenticate(username=email,password=password)
             login(request,user)
-            return redirect('home/')
+            return redirect('account/login')
     else:
         form=UserCreationForm()
         
