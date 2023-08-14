@@ -10,6 +10,15 @@
         <link rel="stylesheet" href="{% static 'style.css'%}">
     </head>
     <body>
+        {%if form.errors %}
+        <div class="alert alert-danger alert-dismissible">
+            Email and/or password are wrong.Try again
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+        {%if next%}
+        <div class="alert alert-danger" role="alert">I am sorry.You cannot access this page</div>
+        {%endif%}
         <section class="vh-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -23,18 +32,13 @@
                                     <p class="text-white-50 mb-5">Complete the form to register</p>
 
                                     <form method="post">
-
                                         {%csrf_token%}
-
-                                        <label for='email'>Email:</label><br>
-                                        <input id='email' name="email" class="form-control  form-control-lg form-outline form-white mb-4" >
-                                        <label for='password1'>password:</label><br>
-                                        <input id="password1" name="password" type="password" class="form-control form-control-lg form-outline form-white mb-4" >
-                                        <label for='firstname'>firstname:</label><br>
-                                        <input id='firstname' name="firstname" class="form-control form-control-lg form-outline form-white mb-4" >
-                                        <label for='lastname'>lastname:</label><br>
-                                        <input id="lastname" naeme="lastname" class="form-control form-control-lg form-outline form-white mb-4" >
-                                        <input type="submit" value="Complete Registration" class="btn btn-outline-light btn-lg px-5">
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >email: {{ form.email }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >password: {{ form.password1 }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >FirstName: {{ form.FirstName }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >LastName: {{ form.LastName}}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >confirm password: {{ form.password2 }}</p>
+                                        <p><input type="submit" value="Complete Registration" class="btn btn-outline-light btn-lg px-5"></p>
                                     </form>
                                 </div>
                             </div>

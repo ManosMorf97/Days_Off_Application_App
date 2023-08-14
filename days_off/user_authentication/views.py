@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponse
 from code_.connection import *
+from .forms import UserRegistrationForm
 
 
 def home(request):
@@ -11,14 +11,14 @@ def home(request):
 
 def register(request):
     if request.method=='POST':
-        form=UserCreationForm(request.POST)
+        form=UserRegistrationForm(request.POST)
 
         if(form.is_valid()):
             form.save()
             email=form.cleaned_data['email']
             password=form.cleaned_data['password1']
-            firstname=form.cleaned_data['firstname']
-            lastname=form.cleaned_data['lastname']
+            firstname=form.cleaned_data['FirstName']
+            lastname=form.cleaned_data['LastName']
             user=authenticate(username=email,password=password)
             db,cursor=connect()
             sql_statement="Insert into Employee values(%s,%s,%s,25,25,120)"
@@ -28,7 +28,7 @@ def register(request):
             login(request,user)
             return redirect('account/login')
     else:
-        form=UserCreationForm()
+        form=UserRegistrationForm()
         
         context={'form':form}
         return render(request,'registration/register.html',context)
