@@ -12,7 +12,7 @@
     <body>
         {%if form.errors %}
         <div class="alert alert-danger alert-dismissible">
-            Email and/or password are wrong.Try again
+            There is something wrong here.Don't worry,try again
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {%endif%}
@@ -33,7 +33,7 @@
 
                                     <form method="post">
                                         {%csrf_token%}
-                                        <p class="form-control form-control-lg form-outline form-white mb-4" >email: {{ form.email }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >email: {{ form.username }}</p>
                                         <p class="form-control form-control-lg form-outline form-white mb-4" >password: {{ form.password1 }}</p>
                                         <p class="form-control form-control-lg form-outline form-white mb-4" >FirstName: {{ form.FirstName }}</p>
                                         <p class="form-control form-control-lg form-outline form-white mb-4" >LastName: {{ form.LastName}}</p>
