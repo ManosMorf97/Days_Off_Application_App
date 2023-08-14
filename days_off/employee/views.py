@@ -7,4 +7,9 @@ from code_.connection import *
 
 
 def welcome_employee(request):
+    print(request.user)
     return render(request,'welcome_employee.html')
+
+def test(request):
+    print(request.user)
+    return render(request,'welcome_employee_2.html')

@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>WELCOME</title>
+        <title>WELCOME2</title>
         {% load bootstrap5 %}
         {% bootstrap_css %}
         {% bootstrap_javascript %}
@@ -11,7 +11,7 @@
     </head>
     <body class="vh-100 gradient-custom">
         {% if user.is_authenticated%}
-        <h1>HELLO {{user.username}}</h1>
+        <h1>HELLO2 {{user.username}}</h1>
         {%endif%}
         <button type="button">Days Off Ammount</button>
         <button type="button">Create Request for days_off</button>
