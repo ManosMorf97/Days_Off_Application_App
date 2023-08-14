@@ -6,5 +6,5 @@ from code_.connection import *
 # Create your views here.
 
 
-def employee(request):
+def welcome_employee(request):
     return HttpResponse('EMPLOYEE')
