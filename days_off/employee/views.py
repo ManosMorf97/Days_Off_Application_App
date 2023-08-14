@@ -7,4 +7,4 @@ from code_.connection import *
 
 
 def welcome_employee(request):
-    return HttpResponse('EMPLOYEE')
+    return render(request,'welcome_employee.html')
