@@ -72,6 +72,8 @@ def results(email):
         sql_statement="Update Decision set viewed='yes' where reciever=%s"
         cursor.execute(sql_statement,values)
         db.commit()
+        cursor.execute("Delete from Decision")
+        db.commit()
     except  mysql.connector.Error as err:
         print(err)
     disconnect(db,cursor)

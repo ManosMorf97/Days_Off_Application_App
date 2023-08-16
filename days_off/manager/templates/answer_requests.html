@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WELCOME</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <!--link rel="stylesheet" href="{% static 'style.css'%}-->
+    </head>
+    <body class="vh-100 bg-primary">
+        {%if user.is_superuser%}
+        {%if message %}
+                {%if success%}
+                <div class="alert alert-success alert-dismissible">
+                    The form has been submited succesfully
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% else %}
+                <div class="alert alert-danger alert-dismissible">
+                    There's something wrong in the database.Don't worry,it 's not your faul.Try again later'
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {%endif%}
+            {%endif%}
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="/manager/welcome_manager">Home</a>
+                        <a class="nav-item nav-link active" href="#">Answer Requests</a>
+                        <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <form method="post">
+
+                                {%csrf_token%}
+
+                                <table class="table table-dark">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">email</th>
+                                        <th scope="col">category</th>
+                                        <th scope="col">RequestedDaysOff</th>
+                                        <th scope="col">Accepted</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%if rows|length >= 1%}
+                                            {%for row in rows%}
+                                            <tr>
+                                                <td>{{row.0}}</td>
+                                                <td>{{row.1}}</td>
+                                                <td>{{row.2}}</td>
+                                                <td>{{row.3}}</td>
+                                                <td><input class="form-check-input" type="checkbox" value="{{row.0}}"  name="ids"></td>
+                                            </tr>
+                                            {%endfor%}
+                                        {%else%}
+                                        <tr>
+                                            <td>You don't have any unanswered requests</td>
+                                        {%endif%}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                {%if rows|length >= 1%}
+                                    <input type="submit" value="submit" class="btn btn-outline-light btn-lg px-5">
+                                {%endif%}
+
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%endif%}
+    </body>

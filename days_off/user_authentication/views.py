@@ -32,7 +32,7 @@ def register(request):
             db.commit()
             disconnect(db,cursor)
             login(request,user)
-            return redirect('employee')
+            return redirect('/accounts/login')
     else:
         form=UserRegistrationForm()
         

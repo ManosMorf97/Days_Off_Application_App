@@ -10,64 +10,65 @@
         <!--link rel="stylesheet" href="{% static 'style.css'%}-->
     </head>
     <body class="vh-100 bg-primary">
-        {%if message %}
-            {%if success%}
-            <div class="alert alert-success alert-dismissible">
-                {{answer}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            {% else %}
-            <div class="alert alert-danger alert-dismissible">
-                {{answer}}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+        {%if not user.is_superuser%}
+            {%if message %}
+                {%if success%}
+                <div class="alert alert-success alert-dismissible">
+                    {{answer}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% else %}
+                <div class="alert alert-danger alert-dismissible">
+                    {{answer}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {%endif%}
             {%endif%}
-        {%endif%}
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-item nav-link" href="/employee/welcome">Home</a>
-                <a class="nav-item nav-link active" href="#">New Request</a>
-                <a class="nav-item nav-link" href="/employee/left_days_off">Left Days Off</a>
-                <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
-                <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
-              </div>
-            </div>
-        </nav>
-        {% if user.is_authenticated%}
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                        <div class="card-body p-5 text-center">
-            
-                            <div class="mb-md-5 mt-md-4 pb-5">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="/employee/welcome">Home</a>
+                    <a class="nav-item nav-link active" href="#">New Request</a>
+                    <a class="nav-item nav-link" href="/employee/left_days_off">Left Days Off</a>
+                    <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+                </div>
+                </div>
+            </nav>
+            {% if user.is_authenticated%}
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
                 
-                                <h2 class="fw-bold mb-2 text-uppercase">Request</h2>
-                                <p class="text-white-50 mb-5">Enter days_off and choose type of days off</p>
+                                <div class="mb-md-5 mt-md-4 pb-5">
+                    
+                                    <h2 class="fw-bold mb-2 text-uppercase">Request</h2>
+                                    <p class="text-white-50 mb-5">Enter days_off and choose type of days off</p>
 
-                                <form method="post">
+                                    <form method="post">
 
-                                    {%csrf_token%}
+                                        {%csrf_token%}
 
-                                    Days_off:<input name="days" class="form-control form-control-lg form-outline form-white mb-4" type="text" id="days">
-                                    Category:<select name="category" class="form-select" aria-label="Default select example">
-                                        <option selected>Select type of days_off</option>
-                                        <option value="NormalDaysOff">NormalDaysOff</option>
-                                        <option value="ParentialDaysOff">ParentialDaysOff</option>
-                                        <option value="DiseaseDaysOff">DiseaseDaysOff</option>
-                                    </select>
-                                    <input type="submit" value="submit" class="btn btn-outline-light btn-lg px-5">
-                                    <input type="hidden" name="next" value="{{ next }}">
-                                </form>
+                                        Days_off:<input name="days" class="form-control form-control-lg form-outline form-white mb-4" type="text" id="days">
+                                        Category:<select name="category" class="form-select" aria-label="Default select example">
+                                            <option selected>Select type of days_off</option>
+                                            <option value="NormalDaysOff">NormalDaysOff</option>
+                                            <option value="ParentialDaysOff">ParentialDaysOff</option>
+                                            <option value="DiseaseDaysOff">DiseaseDaysOff</option>
+                                        </select>
+                                        <input type="submit" value="submit" class="btn btn-outline-light btn-lg px-5">
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        {%endif%}
+            {%endif%}
+        {% endif %}
     </body>

@@ -16,18 +16,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home</a>
-                <a class="nav-item nav-link" href="/employee/new_request">New Request</a>
-                <a class="nav-item nav-link" href="/employee/left_days_off">Left Days Off</a>
-                <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
+                {% if user.is_superuser%}
+                    <a class="nav-item nav-link active" href="/manager/welcome_manager">Manager</a>
+                {% else %}
+                    <a class="nav-item nav-link active" href="#">Home</a>
+                    <a class="nav-item nav-link" href="/employee/new_request">New Request</a>
+                    <a class="nav-item nav-link" href="/employee/left_days_off">Left Days Off</a>
+                    <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
+                    {% endif %}
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
               </div>
             </div>
         </nav>
-        {% if user.is_authenticated%}
+        {% if user.is_authenticated and not user.is_superuser%}
             <h1>HELLO {{user.username}}</h1>
             {%if unreaded == 0 %}
-                <p>You don't have any unanswered request</p>
+                <p>You don't have any unanswered requests</p>
             {%elif unreaded == 1 %}
                 <p>You have {{unreaded}} unreaded decision for the request you made</p>
             {%else%}
