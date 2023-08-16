@@ -7,9 +7,9 @@
         {% load bootstrap5 %}
         {% bootstrap_css %}
         {% bootstrap_javascript %}
-        <link rel="stylesheet" href="{% static 'style.css'%}">
+        <!--link rel="stylesheet" href="{% static 'style.css'%}-->
     </head>
-    <body class="vh-100 gradient-custom">
+    <body class="vh-100 bg-primary">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -17,15 +17,21 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="#">Home</a>
-                <a class="nav-item nav-link" href="#">New Request</a>
-                <a class="nav-item nav-link" href="#">Decisions</a>
+                <a class="nav-item nav-link" href="/employee/new_request">New Request</a>
+                <a class="nav-item nav-link" href="/employee/left_days_off">Left Days Off</a>
+                <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
               </div>
             </div>
-          </nav>
+        </nav>
         {% if user.is_authenticated%}
-        <h1>HELLO {{user.username}}</h1>
+            <h1>HELLO {{user.username}}</h1>
+            {%if unreaded == 0 %}
+                <p>You don't have any unanswered request</p>
+            {%elif unreaded == 1 %}
+                <p>You have {{unreaded}} unreaded decision for the request you made</p>
+            {%else%}
+                <p>You have {{unreaded}} unreaded decisions for the request you made</p>
+            {%endif%}
         {%endif%}
-        <button type="button">Days Off Ammount</button>
-        <button type="button">Create Request for days_off</button>
-        <p>You have 5 unreaded decision for the request you made</p>
     </body>

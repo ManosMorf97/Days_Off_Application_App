@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>LEFT DAYS OFF</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <!--link rel="stylesheet" href="{% static 'style.css'%}-->
+    </head>
+    <body class="vh-100 bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="/employee/welcome">Home</a>
+                <a class="nav-item nav-link" href="/employee/new_request">New Request</a>
+                <a class="nav-item nav-link active" href="#">Left Days Off</a>
+                <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+              </div>
+            </div>
+        </nav>
+        {%if user.is_authenticated%}
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <table class="table table-dark">
+                            <thead>
+                            <tr>
+                                <th scope="col">Type</th>
+                                <th scope="col">RemainingDaysOff</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {%for key,value in days_off.items%}
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endif%}
+    </body>

@@ -30,6 +30,7 @@ def create_request(email,category_double_quote,request_days_off):
         db.commit()
     except mysql.connector.Error as err:
         print(err)
+        return "There is something wrong.Try again"
     disconnect(db,cursor)
     return "Your request has been sent"
     
