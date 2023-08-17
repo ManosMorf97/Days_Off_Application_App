@@ -17,7 +17,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 {% if user.is_superuser%}
-                    <a class="nav-item nav-link active" href="/manager/welcome_manager">Manager</a>
+                    <a class="nav-item nav-link" href="/manager/welcome_manager">Manager</a>
                 {% else %}
                     <a class="nav-item nav-link active" href="#">Home</a>
                     <a class="nav-item nav-link" href="/employee/new_request">New Request</a>

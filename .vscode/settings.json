@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./days_off/code_"
+    ]
+}

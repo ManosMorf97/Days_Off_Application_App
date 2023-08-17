@@ -58,8 +58,6 @@ def Accept_Reject(accepted_requests_ids):
         print(rejected_requests_ids)
         process_Request(rejected_requests_ids,'Rejected',db,cursor)
         process_Request(accepted_requests_ids,'Accepted',db,cursor)
-        cursor.execute("delete from Request")
-        db.commit()
     except mysql.connector.Error as err:
         complete=False
         print(err)
