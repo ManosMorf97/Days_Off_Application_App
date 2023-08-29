@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: company
+      MYSQL_ROOT_PASSWORD: x#9kQL4X
+      MYSQL_USER: manos
+      MYSQL_PASSWORD: x#9kQL4X
+

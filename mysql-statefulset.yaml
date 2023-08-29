@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefull-db
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sql-tasks
+  serviceName: "database-service"
+  template:
+    metadata:
+      labels:
+        app: sql-tasks
+    spec:
+      containers:
+      - name: statefull-db
+        image: mysql
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_DATABASE
+          value: company
+        - name: MYSQL_ROOT_PASSWORD
+          value: x#9kQL4X
+        - name: MYSQL_USER
+          value: manos
+        - name: MYSQL_PASSWORD
+          value: x#9kQL4X
+        
+
+
+      
