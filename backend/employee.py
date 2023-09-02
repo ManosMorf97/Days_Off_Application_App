@@ -1,4 +1,4 @@
-from .connection import *
+from connection import *
 
 def create_request(email,category_double_quote,request_days_off):
     category={}
@@ -76,6 +76,9 @@ def results(email):
         print(err)
     disconnect(db,cursor)
     return returned_results
+
+
+
 
 
 #print(create_request('manosmorf97@gmail.com',"NormalDaysOff",10))

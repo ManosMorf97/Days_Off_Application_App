@@ -3,6 +3,12 @@ import paho.mqtt.client as mqtt
 import time
 List = [[{'course':'python','fee':4000}], [{'duration':'60days', 'discount':1200}]]
 jsonList = json.dumps(List)
+
+dict1={'name':'Manos','parents':['MILTOS','SOULA']}
+json_d=json.dumps(dict1)
+print(json_d)
+json_l=json.loads(json_d)
+print(json_l)
 #print(jsonList)
 
 List_2=json.loads(jsonList)
@@ -30,7 +36,7 @@ client.on_disconnect=disconnect
 
 
 for i in range(2):
-    client.connect("mqtt.eclipseprojects.io")
+    client.connect("localhost",port=1883)
     client.loop_start()
     client.publish("Random","Publisher: "+input())
     client.subscribe("Random")
