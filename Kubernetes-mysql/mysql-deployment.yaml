@@ -1,21 +1,23 @@
+#https://dev.to/musolemasu/deploy-a-mysql-database-server-in-kubernetes-static-dpc
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: statefull-db
+  name: depl-db
   namespace: days-off
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: sql-tasks
-  serviceName: "database-service"
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
         app: sql-tasks
     spec:
       containers:
-      - name: statefull-db
+      - name: deployment-db
         image: mysql
         ports:
         - containerPort: 3306
@@ -28,6 +30,13 @@ spec:
           value: manos
         - name: MYSQL_PASSWORD
           value: x#9kQL4X
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
         
 
 

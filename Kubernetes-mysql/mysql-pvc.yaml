@@ -1,0 +1,13 @@
+#https://dev.to/musolemasu/deploy-a-mysql-database-server-in-kubernetes-static-dpc
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: days-off
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
