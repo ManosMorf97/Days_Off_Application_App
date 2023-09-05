@@ -21,7 +21,7 @@ def statement():
 
 #statement()
 db,cursor=connect()
-cursor.execute("select * from Employee")
+cursor.execute("show tables")
 print(cursor.fetchall())
 db.commit()
 disconnect(db,cursor)

@@ -1,16 +1,14 @@
 #https://dev.to/musolemasu/deploy-a-mysql-database-server-in-kubernetes-static-dpc
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: depl-db
+  name: stateful-db
   namespace: days-off
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: sql-tasks
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:

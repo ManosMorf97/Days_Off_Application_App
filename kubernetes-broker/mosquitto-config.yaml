@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: mosquitto-conf
+  namespace: days-off
+data:
+  mosquitto.conf: |
+    allow_anonymous true
+    listener 1883
+    persistence false
+    persistence_location /var/lib/mosquitto/data
+    log_dest file var/lib/mosquitto/log

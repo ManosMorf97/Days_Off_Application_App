@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto-depl
+  namespace: days-off
+  labels:
+    app: mosquitto-broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto-broker
+  template:
+    metadata:
+      labels:
+        app: mosquitto-broker
+    spec:
+      containers:
+      - image: eclipse-mosquitto
+        name: mosquitto-container
+        ports:
+        - containerPort: 1883
+        - containerPort: 9001
+        volumeMounts:
+        - mountPath: /mosquitto/conf/mosquitto.conf
+          name: mosquitto-volume
+      volumes:
+      - name: mosquitto-volume
+        configMap:
+          name: mosquitto-conf
+
+
+
