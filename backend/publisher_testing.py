@@ -36,7 +36,7 @@ client.on_disconnect=disconnect
 
 
 for i in range(2):
-    client.connect("localhost",port=1883)
+    client.connect("localhost",port=31002)
     client.loop_start()
     client.publish("Random","Publisher: "+input())
     client.subscribe("Random")

@@ -19,11 +19,11 @@ def on_message(client,userdate,message):
 
 
 client.on_message=on_message
-client.connect("localhost",port=1883)
+client.connect("mqtt.eclipseprojects.io")
 client.loop_start()
-client.subscribe("App")
+client.subscribe("App_op86SqnDaZ")
 json_request=json.dumps(request)
-client.publish("App",json_request)
+client.publish("App_op86SqnDaZ",json_request)
 time.sleep(10)
 client.loop_stop()
 client.disconnect()

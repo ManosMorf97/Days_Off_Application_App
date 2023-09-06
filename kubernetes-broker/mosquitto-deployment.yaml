@@ -28,6 +28,3 @@ spec:
       - name: mosquitto-volume
         configMap:
           name: mosquitto-conf
-
-
-
