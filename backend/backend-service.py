@@ -8,7 +8,8 @@ from employee import *
 from manager import *
 from activation import *
 
-client=mqtt.Client("backend")
+client=mqtt.Client("mqttb",transport='tcp')
+client.username_pw_set("mqtt")
 
 func={}
 func['insert_new_user']=insert_new_user
@@ -22,6 +23,7 @@ func['activate_tables']=activate_tables
 
 
 def handle_Request(client,userdata,message):
+    print("I heard something")
     message_decoded_json=message.payload.decode("utf-8","ignore")
     message_decoded=json.loads(message_decoded_json)
     if "sender" not in message_decoded:
@@ -35,13 +37,13 @@ def handle_Request(client,userdata,message):
     else:
         results=func[func_name](**params)
     message_to_reciever={'results':results,'reciever':sender}
-    client.publish("App_op86SqnDaZ",json.dumps(message_to_reciever))
+    client.publish("home/frontend",json.dumps(message_to_reciever))
 
 
 
 client.on_message=handle_Request
-client.connect("mqtt.eclipseprojects.io")
-client.subscribe("App_op86SqnDaZ")
+client.connect("localhost",port=1883)
+client.subscribe("home/backend")
 
 client.loop_forever()
 

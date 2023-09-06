@@ -2,7 +2,8 @@ import paho.mqtt.client as mqtt
 import time
 import json
 
-client=mqtt.Client("Frontend")
+client=mqtt.Client("mqttf",transport='tcp')
+client.username_pw_set("mqtt")
 
 #request={'sender':"johnd@gmail.com",'function':"insert_new_user",'params':{'email':'johnd@gmail.com','firstname':'John','lastname':'Doe'}}
 request={'sender':"",'function':"activate_tables",'params':None}
@@ -19,11 +20,11 @@ def on_message(client,userdate,message):
 
 
 client.on_message=on_message
-client.connect("mqtt.eclipseprojects.io")
+client.connect("localhost",port=1883)
 client.loop_start()
-client.subscribe("App_op86SqnDaZ")
+client.subscribe("home/frontend")
 json_request=json.dumps(request)
-client.publish("App_op86SqnDaZ",json_request)
+client.publish("home/backend",json_request)
 time.sleep(10)
 client.loop_stop()
 client.disconnect()

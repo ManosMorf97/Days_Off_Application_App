@@ -9,6 +9,7 @@ data:
   mosquitto.conf: |
     allow_anonymous true
     listener 1883
+    user mqtt
     persistence false
-    persistence_location /var/lib/mosquitto/data
-    log_dest file var/lib/mosquitto/log
+    persistence_location mosquitto/data
+    log_dest file mosquitto/log

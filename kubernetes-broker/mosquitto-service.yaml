@@ -4,8 +4,8 @@ metadata:
   name: mosquitto-service
   namespace: days-off
 spec:
+  type: ClusterIP
   selector:
     app: mosquitto-broker
-  type: ClusterIP
   ports:
-  - port: 31002
+  - port: 1883
