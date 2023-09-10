@@ -2,17 +2,16 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: stateful-db2
-  namespace: days-off
+  name: stateful-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sql-tasks2
+      app: sql-tasks
   template:
     metadata:
       labels:
-        app: sql-tasks2
+        app: sql-tasks
     spec:
       containers:
       - name: deployment-db
@@ -23,11 +22,17 @@ spec:
         - name: MYSQL_DATABASE
           value: company
         - name: MYSQL_ROOT_PASSWORD
-          value: x#9kQL4X
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
         - name: MYSQL_USER
           value: manos
         - name: MYSQL_PASSWORD
-          value: x#9kQL4X
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
         volumeMounts:
         - name: mysql-storage
           mountPath: /var/lib/mysql
@@ -35,7 +40,3 @@ spec:
       - name: mysql-storage
         persistentVolumeClaim:
           claimName: mysql-pvc
-        
-
-
-      

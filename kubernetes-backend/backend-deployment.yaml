@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
-  namespace: days-off
   labels:
     app: backend-app
 spec:
@@ -15,11 +14,14 @@ spec:
       labels:
         app: backend-app
     spec:
+      restartPolicy: Always
       containers:
       - name: backend
-        image: manoshua/days_off_app-backend
+        image: manoshua/days-off-app:backend
         ports:
         - containerPort: 31002
+      imagePullSecrets:
+      - name: credentials
 
 
       

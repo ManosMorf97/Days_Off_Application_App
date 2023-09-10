@@ -19,7 +19,7 @@ def statement():
     db.commit()
     disconnect(db,cursor)
 
-#statement()
+statement()
 db,cursor=connect()
 cursor.execute("show tables")
 print(cursor.fetchall())

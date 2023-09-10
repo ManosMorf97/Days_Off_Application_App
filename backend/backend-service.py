@@ -7,9 +7,10 @@ import json
 from employee import *
 from manager import *
 from activation import *
+from secretP import *
 
 client=mqtt.Client("mqttb",transport='tcp')
-client.username_pw_set("mqtt")
+#client.username_pw_set("mqtt")
 
 func={}
 func['insert_new_user']=insert_new_user
@@ -21,7 +22,7 @@ func['see_Requests']=see_Requests
 func['Accept_Reject']=Accept_Reject
 func['activate_tables']=activate_tables
 
-
+activate_tables()
 def handle_Request(client,userdata,message):
     print("I heard something")
     message_decoded_json=message.payload.decode("utf-8","ignore")
@@ -37,13 +38,12 @@ def handle_Request(client,userdata,message):
     else:
         results=func[func_name](**params)
     message_to_reciever={'results':results,'reciever':sender}
-    client.publish("home/frontend",json.dumps(message_to_reciever))
-
-
+    client.publish("home/frontend"+broker_pwd,json.dumps(message_to_reciever))
 
 client.on_message=handle_Request
-client.connect("localhost",port=1883)
-client.subscribe("home/backend")
+#client.on_log=function2
+client.connect("mqtt.eclipseprojects.io")
+client.subscribe("home/backend"+broker_pwd)
 
 client.loop_forever()
 
