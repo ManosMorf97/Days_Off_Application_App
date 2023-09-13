@@ -69,7 +69,7 @@ def results(email):
         cursor.execute(sql_statement,values)
         returned_results=[result[0] for result in list(cursor.fetchall())]
         db.commit()
-        sql_statement="Delete * from Decision"
+        sql_statement="delete from Decision where reciever=%s"
         cursor.execute(sql_statement,values)
         db.commit()
     except  mysql.connector.Error as err:

@@ -10,7 +10,7 @@ from activation import *
 from secretP import *
 
 client=mqtt.Client("mqttb",transport='tcp')
-#client.username_pw_set("mqtt")
+client.username_pw_set("mqtt")
 
 func={}
 func['insert_new_user']=insert_new_user
@@ -22,7 +22,6 @@ func['see_Requests']=see_Requests
 func['Accept_Reject']=Accept_Reject
 func['activate_tables']=activate_tables
 
-activate_tables()
 def handle_Request(client,userdata,message):
     print("I heard something")
     message_decoded_json=message.payload.decode("utf-8","ignore")
@@ -42,7 +41,7 @@ def handle_Request(client,userdata,message):
 
 client.on_message=handle_Request
 #client.on_log=function2
-client.connect("mqtt.eclipseprojects.io")
+client.connect("localhost",port=1883)
 client.subscribe("home/backend"+broker_pwd)
 
 client.loop_forever()
