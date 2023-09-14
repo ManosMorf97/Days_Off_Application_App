@@ -1,0 +1,4 @@
+Django
+django-admin
+django-bootstrap-v5
+paho-mqtt

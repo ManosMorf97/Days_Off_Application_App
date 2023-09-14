@@ -41,7 +41,7 @@ def handle_Request(client,userdata,message):
 
 client.on_message=handle_Request
 #client.on_log=function2
-client.connect("localhost",port=1883)
+client.connect("10.0.59.134",port=1883)
 client.subscribe("home/backend"+broker_pwd)
 
 client.loop_forever()

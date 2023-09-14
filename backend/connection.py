@@ -7,7 +7,7 @@ def connect():
     while try_con:
         try:
             try_con=False
-            db=mysql.connector.connect(user='manos',password=mysql_pwd,database='company',host="10.152.183.121",port=3306)
+            db=mysql.connector.connect(user='manos',password=mysql_pwd,database='company',host="10.0.216.16",port=3306)
         except mysql.connector.Error as err:
             try_con=True
 

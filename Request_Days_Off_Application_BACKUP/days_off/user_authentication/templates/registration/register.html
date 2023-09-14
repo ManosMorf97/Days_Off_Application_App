@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>REGISTER</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <link rel="stylesheet" href="{% static 'style.css'%}">
+    </head>
+    <body>
+        {%if form.errors %}
+        <div class="alert alert-danger alert-dismissible">
+           Sorry,try again
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+        {%if next%}
+        <div class="alert alert-danger" role="alert">I am sorry.You cannot access this page</div>
+        {%endif%}
+        <section class="vh-100 bg-primary">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+                
+                                <div class="mb-md-5 mt-md-4 pb-5">
+                    
+                                    <h2 class="fw-bold mb-2 text-uppercase">Registration</h2>
+                                    <p class="text-white-50 mb-5">Complete the form to register</p>
+
+                                    <form method="post">
+                                        {%csrf_token%}
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >email: {{ form.username }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >password: {{ form.password1 }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >FirstName: {{ form.FirstName }}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >LastName: {{ form.LastName}}</p>
+                                        <p class="form-control form-control-lg form-outline form-white mb-4" >confirm password: {{ form.password2 }}</p>
+                                        <p><input type="submit" value="Complete Registration" class="btn btn-outline-light btn-lg px-5"></p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>    

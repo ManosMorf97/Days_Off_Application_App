@@ -34,7 +34,7 @@ def welcome_employee(request):
     params={'email':request.user.username}
     request_to_server={'sender':request.user.username,'function':'unseen_answers','params':params}
 
-    client.connect("localhost",port=1883)
+    client.connect("10.0.59.134",port=1883)
     client.loop_start()
     client.subscribe("home/frontend"+broker_pwd)
     json_request_to_server=json.dumps(request_to_server)
@@ -75,7 +75,7 @@ def request_days(request):
 
         request_to_server={'sender':request.user.username,'function':'activate_tables','params':None}
 
-        client.connect("localhost",port=1883)
+        client.connect("10.0.59.134",port=1883)
         client.loop_start()
         client.subscribe("home/frontend"+broker_pwd)
         json_request_to_server=json.dumps(request_to_server)
@@ -114,7 +114,7 @@ def request_days(request):
         params={'email':request.user.username,'category_double_quote':category,'request_days_off':int(days)}
         request_to_server={'sender':request.user.username,'function':'create_request','params':params}
 
-        client.connect("localhost",port=1883)
+        client.connect("10.0.59.134",port=1883)
         client.loop_start()
         client.subscribe("home/frontend"+broker_pwd)
         json_request_to_server=json.dumps(request_to_server)
@@ -157,7 +157,7 @@ def left_days_off(request):
         params={'email':request.user.username,'category_double_quote':type_}
         request_to_server={'sender':request.user.username,'function':'get_left_days_off','params':params}
         
-        client.connect("localhost",port=1883)
+        client.connect("10.0.59.134",port=1883)
         client.loop_start()
         client.subscribe("home/frontend"+broker_pwd)
         json_request_to_server=json.dumps(request_to_server)
@@ -196,7 +196,7 @@ def decisions(request):
     params={'email':request.user.username}
     request_to_server={'sender':request.user.username,'function':'results','params':params}
 
-    client.connect("localhost",port=1883)
+    client.connect("10.0.59.134",port=1883)
     client.loop_start()
     client.subscribe("home/frontend"+broker_pwd)
     json_request_to_server=json.dumps(request_to_server)

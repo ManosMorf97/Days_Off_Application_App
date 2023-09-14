@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: frontend
+        image: manoshua/days-off-app:frontend
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: frontend-storage
+          mountPath: /var/www/html/db.sqlite3
+      volumes:
+      - name: frontend-storage
+        persistentVolumeClaim:
+          claimName: frontend-pvc
+      imagePullSecrets:
+      - name: credentials

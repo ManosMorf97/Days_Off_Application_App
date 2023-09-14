@@ -34,7 +34,7 @@ def welcome_manager(request):
 
     request_to_server={'sender':'boss','function':'activate_tables','params':None}
 
-    client.connect("localhost",port=1883)
+    client.connect("10.0.59.134",port=1883)
     client.loop_start()
     client.subscribe("home/frontend"+broker_pwd)
     json_request_to_server=json.dumps(request_to_server)
@@ -71,7 +71,7 @@ def answer_requests(request):
 
         request_to_server={'sender':'boss','function':'see_Requests','params':None}
 
-        client.connect("localhost",port=1883)
+        client.connect("10.0.59.134",port=1883)
         client.loop_start()
         client.subscribe("home/frontend"+broker_pwd)
         json_request_to_server=json.dumps(request_to_server)
@@ -109,7 +109,7 @@ def answer_requests(request):
         params={'accepted_requests_ids':accepted_ids}
         request_to_server={'sender':'boss','function':'Accept_Reject','params':params}
 
-        client.connect("localhost",port=1883)
+        client.connect("10.0.59.134",port=1883)
         client.loop_start()
         client.subscribe("home/frontend"+broker_pwd)
         json_request_to_server=json.dumps(request_to_server)

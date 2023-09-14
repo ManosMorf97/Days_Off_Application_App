@@ -1,0 +1,9 @@
+version: "3"
+services:
+  frontend:
+    image: frontend
+    build: .
+    volumes:
+      - /db.sqlite3:/var/www/html/db.sqlite3
+    ports:
+      - "8000:8000"

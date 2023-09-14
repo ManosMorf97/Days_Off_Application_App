@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto-depl
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: mosquitto-broker
+  template:
+    metadata:
+      labels:
+        app: mosquitto-broker
+    spec:
+      hostNetwork: true
+      restartPolicy: Always
+      containers:
+      - image: eclipse-mosquitto
+        name: mosquitto-container
+        ports:
+        - containerPort: 1883
+        volumeMounts:
+        - mountPath: /mosquitto/conf/
+          name: mosquitto-volume
+      volumes:
+      - name: mosquitto-volume
+        configMap:
+          name: mosquitto-conf
+

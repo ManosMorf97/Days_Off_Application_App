@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>WELCOME</title>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        <!--link rel="stylesheet" href="{% static 'style.css'%}-->
+    </head>
+    <body class="vh-100 bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                {% if user.is_superuser%}
+                    <a class="nav-item nav-link" href="/manager/welcome_manager">Manager</a>
+                {% else %}
+                    <a class="nav-item nav-link active" href="#">Home</a>
+                    <a class="nav-item nav-link" href="/employee/new_request">New Request</a>
+                    <a class="nav-item nav-link" href="/employee/left_days_off">Left Days Off</a>
+                    <a class="nav-item nav-link" href="/employee/decisions">Decisions</a>
+                    {% endif %}
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Log Out</a>
+              </div>
+            </div>
+        </nav>
+        {% if user.is_authenticated and not user.is_superuser%}
+            <h1>HELLO {{user.username}}</h1>
+            {%if unreaded == 0 %}
+                <p>You don't have any unanswered requests</p>
+            {%elif unreaded == 1 %}
+                <p>You have {{unreaded}} unreaded decision for the request you made</p>
+            {%else%}
+                <p>You have {{unreaded}} unreaded decisions for the request you made</p>
+            {%endif%}
+        {%endif%}
+    </body>

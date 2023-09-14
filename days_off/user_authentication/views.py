@@ -48,7 +48,7 @@ def register(request):
             request_to_server={'sender':email,'function':'insert_new_user','params':params}
 
 
-            client.connect("localhost",port=1883)
+            client.connect("10.0.59.134",port=1883)
             client.loop_start()
             client.subscribe("home/frontend"+broker_pwd)
             json_request_to_server=json.dumps(request_to_server)
