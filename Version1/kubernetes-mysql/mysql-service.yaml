@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     app: sql-tasks
-  #clusterIP: 10.152.183.1
+  clusterIP: 10.152.183.121
   ports:
   - protocol: TCP
     port: 3306
